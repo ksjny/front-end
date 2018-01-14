@@ -8,15 +8,31 @@ import {
     Icon, 
     Header,
     Table,
+    Transition,
     Rating
 } from 'semantic-ui-react'
 
 export default class Medicine extends Component {
+        constructor(props) {
+    super(props);
+    this.state = {
+            visible: false
+    };
+}
+
+
+    componentDidMount () {
+
+      this.setState({
+        visible: true
+      })
+     }
     render() {
         return (
+            <Transition animation={'fade right'} duration={500} visible={this.state.visible}>
             <Segment vertical style={styles.medicineContainer}>
                     <Header size='huge'>Medicines
-                    <button class="ui right floated teal button">Add diagnosis</button></Header>
+                    <button class="ui right floated teal button">Add medicine</button></Header>
                     <Table celled padded>
                         <Table.Header>
                         <Table.Row textAlign="center">
@@ -45,6 +61,7 @@ export default class Medicine extends Component {
                         </Table.Body>
                     </Table>
             </Segment>
+         </Transition>
         )
     }
 }

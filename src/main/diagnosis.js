@@ -8,13 +8,31 @@ import {
     Icon, 
     Header,
     Table,
-    Rating
+    Rating,
+    Transition
 } from 'semantic-ui-react'
 
 export default class Diagnosis extends Component {
+    constructor(props) {
+    super(props);
+    this.state = {
+            visible: false
+    };
+}
+
+
+    componentDidMount () {
+
+      this.setState({
+        visible: true
+      })
+     }
+
     render() {
         return (
+             <Transition animation={'fade right'} duration={500} visible={this.state.visible}>
             <Segment vertical style={styles.diagnosisContainer}>
+           
                 <Header size='huge'>Diagnosis
                 <button class="ui right floated teal button">Add diagnosis</button>
                 </Header>
@@ -44,7 +62,9 @@ export default class Diagnosis extends Component {
                     </Table.Row>*/}
                     </Table.Body>
                 </Table>
+           
             </Segment>
+         </Transition>
         )
     }
 }
