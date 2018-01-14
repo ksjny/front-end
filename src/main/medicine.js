@@ -15,7 +15,8 @@ export default class Medicine extends Component {
     render() {
         return (
             <Segment vertical style={styles.medicineContainer}>
-                    <Header size='huge'>Medicines</Header>
+                    <Header size='huge'>Medicines
+                    <button class="ui right floated teal button">Add diagnosis</button></Header>
                     <Table celled padded>
                         <Table.Header>
                         <Table.Row textAlign="center">
