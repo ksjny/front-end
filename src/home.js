@@ -31,11 +31,11 @@ export default class HomePage extends Component {
                  <Segment
                     inverted
                     textAlign='center'
-                    style={{ padding: '1em 0em' }}
+                    style={{ backgroundColor: "darkslategrey" }}
                     vertical
                     >
                     <Container>
-                    <Menu inverted pointing secondary size='large'>
+                    <Menu inverted pointing secondary style={styles.header}size='large'>
                         <Menu.Item as='a' active>Home</Menu.Item>
                         <Menu.Item as='a'>About Us</Menu.Item>
                         <Menu.Item position='right'>
@@ -69,14 +69,21 @@ export default class HomePage extends Component {
                             <Header className="headerOrganizing">Be the best patient</Header>
                             <Divider horizontal className="headerOrganizing"></Divider>
                             <p className="headerSignUp">Sign up with Mediprep and start tracking today.</p>
-                            <Button className="signUpBtn" color='olive' as={Link} to="/register">Sign Up</Button>
+                            <Button className="signUpBtn" color='teal' as={Link} to="/signUp">Sign Up</Button>
                             <div className="headerAlready">Already registered? <Link color='blue'to="/login">Log in.</Link></div>
 
                         </Grid.Column>
                     </Grid>
-                    <Footer/>
+                    <Footer style={styles.header}/>
                 </Segment>
             </div>
         )
+    }
+}
+const styles = {
+    header: {
+          backgroundColor: "darkslategrey",
+          borderWidth:"0px",
+          background:"darkslategrey"
     }
 }
