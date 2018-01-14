@@ -22,7 +22,7 @@ export default class Main extends Component {
 
     render() {
         return (
-              <Container>
+              <Container style={styles.uiContainer}>
                 <Sidebar as={Menu} width='thin' icon='labeled' visible={true} vertical inverted>
                   <Menu.Item link name='Logs' onClick={this.goToLogs}>
                     <Icon name='file' />
@@ -50,5 +50,14 @@ export default class Main extends Component {
                 </Sidebar.Pusher>
               </Container>   
           )
+    }
+}
+
+const styles = {
+    uiContainer : {
+        display: "inline-block",
+        paddingLeft: "20px",
+        paddingRight: "20px"
+
     }
 }

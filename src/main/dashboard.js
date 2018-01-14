@@ -8,12 +8,28 @@ import {
     Icon, 
     Header,
     Table,
-    Rating
+    Rating, 
+    Transition
 } from 'semantic-ui-react'
 
 export default class Dashboard extends Component {
+
+ constructor(props) {
+    super(props);
+    this.state = {
+            visible: false
+    };
+}
+
+    componentDidMount () {
+
+      this.setState({
+        visible: true
+      })
+     }
     render() {
         return (
+         <Transition animation={'fade right'} duration={500} visible={this.state.visible}>
             <Segment vertical style={styles.dashboardContainer}>
                 <Header size='huge'>Logs</Header>
                 <Table celled padded>
@@ -42,6 +58,7 @@ export default class Dashboard extends Component {
                     </Table.Body>
                 </Table>
             </Segment>
+        </Transition>
           )
     }
 }

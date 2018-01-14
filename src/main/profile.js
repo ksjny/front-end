@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Sidebar, Segment, Form, Grid, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
+import { Transition, Sidebar, Segment, Form, Grid, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
 
 export default class Profile extends Component {
       constructor(props) {
@@ -11,6 +11,7 @@ export default class Profile extends Component {
             password: '',
             error: '',
             displayErrors: false,
+            visible: false
         };
         this.handleSubmit          = this.handleSubmit.bind(this);
         this.handleFNameChange     = this.handleFNameChange.bind(this);
@@ -77,6 +78,13 @@ export default class Profile extends Component {
         this.setState({password: e.target.value});
      }
 
+     componentDidMount () {
+
+      this.setState({
+        visible: true
+      })
+     }
+
     render() {
         return (
             //<Segment style={styles.profileContainer}>
@@ -99,6 +107,10 @@ export default class Profile extends Component {
       style={{ height: '100%' }}
       verticalAlign='middle'
     >
+
+     <Transition animation={'fade right'} duration={500} visible={this.state.visible}>
+        
+
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' color='teal' textAlign='center'>
           {' '}Profile
@@ -140,6 +152,7 @@ export default class Profile extends Component {
           </Segment>
         </Form>
       </Grid.Column>
+      </Transition>
     </Grid>
   </div>
             //</Segment>
