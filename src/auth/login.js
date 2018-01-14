@@ -13,6 +13,7 @@ const LoginForm = () => (
       body > div > div,
       body > div > div > div.login-form {
         height: 100%;
+        background-color: aliceblue;
       }
     `}</style>
     <Grid
