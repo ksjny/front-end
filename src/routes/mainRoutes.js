@@ -8,9 +8,9 @@ export default class MainRoutes extends Component {
     render() {
         return (
             <Switch>
-                <Route exact path="/dashboard" component={Dashboard} />               
-                <Route exact path="/profile" component={Profile}/>
-                <Redirect to="/"/>
+                <Route exact path="/main/dashboard" component={Dashboard} />               
+                <Route exact path="/main/profile" component={Profile}/>
+                <Redirect to="/main/dashboard"/>
             </Switch>
         )
     }
