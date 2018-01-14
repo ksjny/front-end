@@ -11,22 +11,33 @@ import {
     Rating,
     Transition
 } from 'semantic-ui-react'
+import ApiHelper from '../api/apiHelper'
 
 export default class Diagnosis extends Component {
     constructor(props) {
-    super(props);
-    this.state = {
+        super(props);
+        this.state = {
+            diagnoses : [],
             visible: false
-    };
-}
+        };
+    }
 
 
-    componentDidMount () {
+    async componentDidMount () {
+        await this.loadDiagnosis()
+        this.setState({
+            visible: true
+        })
+    }
 
-      this.setState({
-        visible: true
-      })
-     }
+    async loadDiagnosis() {
+        let { diagnoses } = await ApiHelper.get('diagnosis')
+        let userId        = localStorage.getItem("userId") || 1;
+
+        diagnoses = (diagnoses || []).filter(diagnosis => diagnosis.user === userId);
+
+        this.setState({ diagnoses })
+    }
 
     render() {
         return (
@@ -34,17 +45,31 @@ export default class Diagnosis extends Component {
             <Segment vertical style={styles.diagnosisContainer}>
            
                 <Header size='huge' style={styles.header}>Diagnosis
-                <button class="ui right floated teal button">Add diagnosis</button>
+                <button className="ui right floated teal button">Add diagnosis</button>
                 </Header>
                 <Table celled padded>
                     <Table.Header>
                     <Table.Row textAlign="center">
                         <Table.HeaderCell singleLine>Time</Table.HeaderCell>
-                        <Table.HeaderCell>Description</Table.HeaderCell>
-                        {/*<Table.HeaderCell>Severity</Table.HeaderCell>*/}
+                        <Table.HeaderCell>Diagnosis</Table.HeaderCell>
+                        <Table.HeaderCell>Severity</Table.HeaderCell>
                     </Table.Row>
                     </Table.Header>
                     <Table.Body>
+                    {
+                        this.state.diagnoses.map((diag, index) => {
+                            return (
+                                <Table.Row key={index} textAlign="center">
+                                    <Table.Cell>
+                                        <Header as='h5' textAlign='center'>{ new Date(diag.created_at).toLocaleDateString()}</Header>
+                                    </Table.Cell>
+                                    <Table.Cell singleLine>{diag.name}</Table.Cell>
+                                    <Table.Cell>{diag.severity}</Table.Cell>
+                                </Table.Row>
+                            )
+                        })
+                    }
+                    
                     {/*
                     <Table.Row textAlign="center">
                         <Table.Cell>

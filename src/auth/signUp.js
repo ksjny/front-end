@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ApiHelper from '../api/apiHelper';
 import { Link } from 'react-router-dom'
 import { Button, Menu, Container,Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
@@ -21,46 +22,30 @@ class SignUp extends Component {
         this.handlePasswordChange  = this.handlePasswordChange.bind(this);
 
     }
-    handleSubmit(event) {
-        // event.preventDefault();
 
-        // if (!event.target.checkValidity()) {
-        //         this.setState({
-        //         invalid: true,
-        //         displayErrors: true,
-        //     });
-        //     return;
-        // }
+    async handleSubmit(event) {
+        event.preventDefault();
+        
+        if (this.state.fname && this.state.lname && this.state.email && this.state.password) {
+          let params = {}
+          params.firstName = this.state.fName
+          params.lastName = this.state.lname
+          params.email = this.state.email
+          params.password = this.state.password
 
-        // const data = {
-        //             email           : this.state.email,
-        //             password        : this.state.password,
-        //             confirmpassword : this.state.cPassword,
-        //             firstName       : this.state.fname,
-        //             lastName        : this.state.lname,
-        //     };
-      
-        // axios({
-        //     url: "https://potluckapi.azurewebsites.net/api/register",
-        //     method: "post",
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     data: JSON.stringify (data)
-        // }).then(response => {
-        //     this.setState({
-        //         success: response.status === 201,
-        //         displayErrors: false,
-        //         error: ''
-        //     })
-        //     this.props.regIsSuccessful()
-        //     this.props.history.push('/login')
-        // }).catch(e => {
-        //     this.setState({
-        //         error: e.response.data.errors[0].description,
-        //         displayErrors: true,
-        //         success: false })
-        // })
+          let response = await ApiHelper.post('users', params)
+
+          if(response) {
+            this.props.history.push('login')
+          } else {
+            this.setState({ displayErrors : true, error : 'Something went wrong when signing up.'})
+          }
+
+        } else {
+          this.setState({ displayErrors : true, error : 'Please check the fields.'})
+        }
+
+
     }
 
     handleFNameChange (e) {
@@ -160,7 +145,7 @@ class SignUp extends Component {
 
             />
 
-            <Button color='teal' fluid size='large'>Sign Up</Button>
+            <Button onClick={this.handleSubmit} color='teal' fluid size='large'>Sign Up</Button>
           </Segment>
         </Form>
         <Message>
