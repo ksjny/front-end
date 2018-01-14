@@ -19,9 +19,14 @@ export default class Diagnosis extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            diagnosisName : '',
+            severity : '',
             diagnoses : [],
             visible: false
         };
+
+        this.loadDiagnosis = this.loadDiagnosis.bind(this)
+        this.addDiagnosis  = this.addDiagnosis.bind(this)
     }
 
 
@@ -32,40 +37,61 @@ export default class Diagnosis extends Component {
         })
     }
 
-    async loadDiagnosis() {
-        let { diagnoses } = await ApiHelper.get('diagnosis')
-        let userId        = localStorage.getItem("userId") || 1;
+    handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
-        diagnoses = (diagnoses || []).filter(diagnosis => diagnosis.user === userId);
+    async loadDiagnosis() {
+        let userId        = localStorage.getItem("userId") || 1;
+        let { diagnoses } = await ApiHelper.get('diagnosis')
+
+        diagnoses = (diagnoses || []).filter(diagnosis => diagnosis.user == userId);
 
         this.setState({ diagnoses })
     }
 
-     handleChange = (e, { name, value }) => this.setState({ [name]: value })
+    async addDiagnosis() {
+        if (this.state.diagnosisName && this.state.severity) {
+            let userId   = localStorage.getItem("userId") || 1;
+            let params = {}
+            params.name = this.state.diagnosisName;
+            params.severity = this.state.severity;
+            params.user = parseInt(userId);
 
-  handleSubmit () {
-    this.setState({ email: '', name: '' });
+            let response = await ApiHelper.post('diagnosis', params);
 
-}
+            if (response) {
+                this.setState({ 
+                    diagnosisName : '',
+                    severity     : ''
+                })
 
- _refresh = () => {
-        window.location.reload();
+                this._refresh()
+            } else {
+                // display errors
+            }
+        } else {
+
+        }
+    }    
+
+
+    _refresh = async () => {
+        await this.loadDiagnosis()
     }
 
     render() {
-        const { name, email } = this.state
+        const { diagnosisName, severity } = this.state
         return (
              <Transition animation={'fade right'} duration={500} visible={this.state.visible}>
             <Segment vertical style={styles.diagnosisContainer}>
                 <Header size='huge' style={styles.header}>Diagnosis
                 <button className="ui right floated teal button" onClick={this._refresh}>Refresh</button>
-                <Modal trigger = {<button class="ui right floated teal button">Add diagnosis</button>}>
+                <Modal trigger = {<button className="ui right floated teal button">Add diagnosis</button>}>
                 <Modal.Header>Add Diagnosis</Modal.Header>
                         <Modal.Content>
-                     <Form onSubmit={this.handleSubmit}>
+                     <Form onSubmit={this.addDiagnosis}>
                         <Form.Group>
-                          <Form.Input placeholder='Diagnosis' name='Diagnosis' value={name} onChange={this.handleChange} />
-                          <Form.Input placeholder='Severity' name='Severity' value={email} onChange={this.handleChange} />
+                          <Form.Input placeholder='Diagnosis' name='diagnosisName' value={diagnosisName} onChange={this.handleChange} />
+                          <Form.Input placeholder='Severity' name='severity' value={severity} onChange={this.handleChange} />
                           <Form.Button content='Submit' />
                         </Form.Group>
                       </Form>

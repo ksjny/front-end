@@ -29,7 +29,7 @@ class SignUp extends Component {
         
         if (this.state.fname && this.state.lname && this.state.email && this.state.password) {
           let params = {}
-          params.firstName = this.state.fName
+          params.firstName = this.state.fname
           params.lastName = this.state.lname
           params.email = this.state.email
           params.password = this.state.password

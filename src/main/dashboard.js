@@ -32,7 +32,7 @@ export default class Dashboard extends Component {
         let { symptoms } = await ApiHelper.get('symptom')
         let userId       = localStorage.getItem("userId") || 1;
 
-        symptoms = (symptoms || []).filter(symptom => symptom.user === userId);
+        symptoms = (symptoms || []).filter(symptom => symptom.user == userId);
 
         this.setState({ symptoms })
     }

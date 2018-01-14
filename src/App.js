@@ -25,16 +25,31 @@ import PrivateRoute from './routes/privateRoute'
 let store = createStore(reducers, {}, applyMiddleware(reduxThunk))
 
 class App extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isAuthenticated : false
+    }
+
+    this.authenticateUser = this.authenticateUser.bind(this)
+  }
+
+  authenticateUser() {
+    this.setState({ isAuthenticated : true })
+  }
+
   render() {
     return (
       <Provider store={store}>
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />               
+            <Route exact path="/login" render={props => <Login authenticateUser={this.authenticateUser} {...props}/>} />               
             <Route exact path="/signup" component={SignUp}/>
             <Route exact path="/About" component={AboutUs}/>
-            <PrivateRoute path="/main" isAuthenticated={true} component={Main} />
+            <PrivateRoute path="/main" isAuthenticated={this.state.isAuthenticated} component={Main} />
           </Switch>
         </Router>
       </Provider>

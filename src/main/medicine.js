@@ -20,9 +20,18 @@ export default class Medicine extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            medicineName : '',
+            timePeriod : '',
             medications : [],
             visible: false
         };
+
+        this.loadMedications = this.loadMedications.bind(this)
+        this.addMedicine = this.addMedicine.bind(this)
+    }
+
+    handleChange = (e, { name, value }) =>  {
+        this.setState({ [name]: value })
     }
 
     async componentDidMount () {
@@ -36,35 +45,55 @@ export default class Medicine extends Component {
         let { medications } = await ApiHelper.get('medication')
         let userId          = localStorage.getItem("userId") || 1;
 
-        medications = (medications || []).filter(medication => medication.user === userId);
+        medications = (medications || []).filter(medication => medication.user == userId);
 
         this.setState({ medications })
     }
-  
-    handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
-    handleSubmit = () => this.setState({ email: '', name: '' })
+    async addMedicine() {
+        if (this.state.medicineName && this.state.timePeriod) {
+            let userId   = localStorage.getItem("userId") || 1;
+            let params = {}
+            params.name = this.state.medicineName;
+            params.time_period = this.state.timePeriod;
+            params.user = parseInt(userId);
 
+            let response = await ApiHelper.post('medication', params);
 
-    _refresh = () => {
-        window.location.reload();
+            if (response) {
+                this.setState({ 
+                    medicineName : '',
+                    timePeriod   : ''
+                })
+
+                this._refresh()
+            } else {
+                // display errors
+            }
+        } else {
+            // display errors
+        }
+    }
+
+    _refresh = async () => {
+        await this.loadMedications()
     }
 
     render() {
-        const { name, email } = this.state
+        const { medicineName, timePeriod } = this.state
         
         return (
             <Transition animation={'fade right'} duration={500} visible={this.state.visible}>
             <Segment vertical style={styles.medicineContainer}>
                     <Header size='huge' style={styles.header}>Medicines
                     <button className="ui right floated teal button" onClick={this._refresh}>Refresh</button>
-                    <Modal trigger = {<button class="ui right floated teal button">Add medicine</button>}>
+                    <Modal trigger = {<button className="ui right floated teal button">Add medicine</button>}>
                 <Modal.Header>Add medicine</Modal.Header>
                         <Modal.Content>
-                     <Form onSubmit={this.handleSubmit}>
+                     <Form onSubmit={this.addMedicine}>
                         <Form.Group>
-                          <Form.Input placeholder='Medicine' name='Medicine' value={name} onChange={this.handleChange} />
-                          <Form.Input placeholder='Time' name='Time' value={email} onChange={this.handleChange} />
+                          <Form.Input placeholder='Medicine' name='medicineName' value={medicineName} onChange={this.handleChange} />
+                          <Form.Input placeholder='Time' name='timePeriod' value={timePeriod} onChange={this.handleChange} />
                           <Form.Button content='Submit' />
                         </Form.Group>
                       </Form>
@@ -83,9 +112,17 @@ export default class Medicine extends Component {
                         {
                             this.state.medications.map((medication, index) => {
                                 let split  = medication.time_period.split(' ')
-                                let daysSeconds   = parseInt(split[0]) * 86400
-                                let timeSplit     = split[1].split(':');
-                                let timeSeconds   = (+timeSplit[0]) * 60 * 60 + (+timeSplit[1]) * 60 + (+timeSplit[2]); 
+                                let daysSeconds, timeSplit, timeSeconds;
+                                
+                                if (split.length > 1) {
+                                    daysSeconds  = parseInt(split[0]) * 86400
+                                    timeSplit    = split[1].split(':');
+                                    timeSeconds  = (+timeSplit[0]) * 60 * 60 + (+timeSplit[1]) * 60 + (+timeSplit[2]); 
+                                } else {
+                                    daysSeconds  = 0
+                                    timeSplit    = split[0].split(':');
+                                    timeSeconds  = (+timeSplit[0]) * 60 * 60 + (+timeSplit[1]) * 60 + (+timeSplit[2]);
+                                }
 
                                 let timePeriod = convertMs(timeSeconds + daysSeconds)
                                 return (

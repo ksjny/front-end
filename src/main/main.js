@@ -19,7 +19,9 @@ export default class Main extends Component {
     goToProfile = () => {
       this.props.history.push('/main/profile')
     }
-        goToHome = () => {
+
+    goToHome = () => {
+        localStorage.clear()
         this.props.history.push('')
     }
 
