@@ -18,8 +18,8 @@ export default class Profile extends Component {
         this.handleLNameChange     = this.handleLNameChange.bind(this);
         this.handleEmailChange     = this.handleEmailChange.bind(this);
         this.handlePasswordChange  = this.handlePasswordChange.bind(this);
-
     }
+
     handleSubmit(event) {
         // event.preventDefault();
 
@@ -79,8 +79,15 @@ export default class Profile extends Component {
      }
 
      componentDidMount () {
+      debugger
+      let email = localStorage.getItem('email')
+      let fname = localStorage.getItem('firstName')
+      let lname = localStorage.getItem('lastName')
 
       this.setState({
+        email, 
+        fname, 
+        lname,
         visible: true
       })
      }
@@ -94,14 +101,6 @@ export default class Profile extends Component {
       You can do same with CSS, the main idea is that all the elements up to the `Grid`
       below must have a height of 100%.
     */}
-    <style>{`
-      body > div,
-      body > div > div,
-      body > div > div > div.login-form {
-        height: 100%;
-        width
-      }
-    `}</style>
     <Grid
       textAlign='center'
       style={{ height: '100%' }}
@@ -109,8 +108,6 @@ export default class Profile extends Component {
     >
 
      <Transition animation={'fade right'} duration={500} visible={this.state.visible}>
-        
-
       <Grid.Column style={{ maxWidth: 681 }}>
         <Header as='h2' style={styles.header} textAlign='center'>
           {' '}Profile
@@ -137,15 +134,6 @@ export default class Profile extends Component {
               iconPosition='left'
               placeholder='E-mail address'
               value={this.state.email} onChange={this.handleEmailChange}
-            />
-            <Form.Input
-              fluid
-              icon='lock'
-              iconPosition='left'
-              placeholder='Password'
-              type='password'
-              value={this.state.password} onChange={this.handlePasswordChange}
-
             />
 
             <Button color='teal' fluid size='large'>Update</Button>
