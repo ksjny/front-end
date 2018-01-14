@@ -33,7 +33,7 @@ export default class Diagnosis extends Component {
              <Transition animation={'fade right'} duration={500} visible={this.state.visible}>
             <Segment vertical style={styles.diagnosisContainer}>
            
-                <Header size='huge'>Diagnosis
+                <Header size='huge' style={styles.header}>Diagnosis
                 <button class="ui right floated teal button">Add diagnosis</button>
                 </Header>
                 <Table celled padded>
@@ -74,5 +74,8 @@ const styles = {
         flexDirection : "column",
         width: "100%",
         minHeight : window.innerHeight
+    },
+        header : {
+        color: 'white'
     }
 }

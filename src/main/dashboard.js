@@ -31,7 +31,7 @@ export default class Dashboard extends Component {
         return (
          <Transition animation={'fade right'} duration={500} visible={this.state.visible}>
             <Segment vertical style={styles.dashboardContainer}>
-                <Header size='huge'>Logs</Header>
+                <Header size='huge' style={styles.header}>Logs</Header>
                 <Table celled padded>
                     <Table.Header>
                     <Table.Row textAlign="center">
@@ -68,5 +68,8 @@ const styles = {
         flexDirection : "column",
         width: "100%",
         minHeight : window.innerHeight
+    },
+    header : {
+        color: 'white'
     }
 }

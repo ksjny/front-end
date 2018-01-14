@@ -31,7 +31,7 @@ export default class Medicine extends Component {
         return (
             <Transition animation={'fade right'} duration={500} visible={this.state.visible}>
             <Segment vertical style={styles.medicineContainer}>
-                    <Header size='huge'>Medicines
+                    <Header size='huge' style={styles.header}>Medicines
                     <button class="ui right floated teal button">Add medicine</button></Header>
                     <Table celled padded>
                         <Table.Header>
@@ -72,5 +72,8 @@ const styles = {
         flexDirection : "column",
         width: "100%",
         minHeight : window.innerHeight
+    },
+        header : {
+        color: 'white'
     }
 }
