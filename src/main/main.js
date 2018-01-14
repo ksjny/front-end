@@ -23,7 +23,7 @@ export default class Main extends Component {
     render() {
         return (
               <Container style={styles.uiContainer}>
-                <Sidebar as={Menu} width='thin' icon='labeled' visible={true} vertical inverted>
+                <Sidebar as={Menu} icon='labeled' visible={true} vertical inverted>
                   <Menu.Item link name='Logs' onClick={this.goToLogs}>
                     <Icon name='file' />
                     Logs
@@ -45,7 +45,7 @@ export default class Main extends Component {
                     Sign Out
                   </Menu.Item>
                 </Sidebar>
-                <Sidebar.Pusher>
+                <Sidebar.Pusher style ={styles.move}>
                   <MainRoutes/>
                 </Sidebar.Pusher>
               </Container>   
@@ -59,5 +59,8 @@ const styles = {
         paddingLeft: "20px",
         paddingRight: "20px"
 
+    },
+    move: {
+      transform: 'translate3d(120px,0,0px)'
     }
 }
