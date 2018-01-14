@@ -14,6 +14,15 @@ import {
 } from 'semantic-ui-react'
 
 export default class HomePage extends Component {
+
+    goToLogin = () => {
+        this.props.history.push('login')
+    }
+
+    goToSignUp = () => {
+        this.props.history.push('signup')
+    }
+
     render() {
         return( 
             <div>
@@ -28,8 +37,8 @@ export default class HomePage extends Component {
                         <Menu.Item as='a' active>Home</Menu.Item>
                         <Menu.Item as='a'>About Us</Menu.Item>
                         <Menu.Item position='right'>
-                        <Button as='a' inverted>Log in</Button>
-                        <Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>
+                        <Button as='a' inverted onClick={this.goToLogin}>Log in</Button>
+                        <Button as='a' inverted style={{ marginLeft: '0.5em' }} onClick={this.goToSignUp}>Sign Up</Button>
                         </Menu.Item>
                     </Menu>
                     </Container>
