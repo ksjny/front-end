@@ -45,7 +45,9 @@ export default class Main extends Component {
                     Sign Out
                   </Menu.Item>
                 </Sidebar>
-                <MainRoutes/>
+                <Sidebar.Pusher>
+                  <MainRoutes/>
+                </Sidebar.Pusher>
               </Container>   
           )
     }
