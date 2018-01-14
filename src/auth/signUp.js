@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ApiHelper from '../api/apiHelper';
 import { Link } from 'react-router-dom'
-import { Button, Menu, Container,Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Button, Menu, Container,Form, Grid, Header, Image, Message, Transition, Segment } from 'semantic-ui-react'
 
 class SignUp extends Component {
 
@@ -14,6 +14,7 @@ class SignUp extends Component {
             password: '',
             error: '',
             displayErrors: false,
+            visible:false
         };
         this.handleSubmit          = this.handleSubmit.bind(this);
         this.handleFNameChange     = this.handleFNameChange.bind(this);
@@ -72,6 +73,19 @@ class SignUp extends Component {
         this.props.history.push('signup')
     }
 
+    goToHome = () => {
+        this.props.history.push('')
+    }
+    goToAbout = () => {
+        this.props.history.push('About')
+    }
+
+
+    componentDidMount () {
+        this.setState({
+            visible: true
+        })
+    }
   render() {
     const displayErrors = this.state.displayErrors
     const error = this.state.error
@@ -86,8 +100,8 @@ class SignUp extends Component {
                     >
                     <Container>
                     <Menu inverted pointing secondary style={styles.header}size='large'>
-                        <Menu.Item as='a' active>Home</Menu.Item>
-                        <Menu.Item as='a'>About Us</Menu.Item>
+                        <Menu.Item as='a' onClick={this.goToHome} >Home</Menu.Item>
+                        <Menu.Item as='a' onClick={this.goToAbout}>About Us</Menu.Item>
                         <Menu.Item position='right'>
                         <Button as='a' inverted onClick={this.goToLogin}>Log in</Button>
                         <Button as='a' inverted style={{ marginLeft: '0.5em' }} onClick={this.goToSignUp}>Sign Up</Button>
@@ -101,6 +115,8 @@ class SignUp extends Component {
       You can do same with CSS, the main idea is that all the elements up to the `Grid`
       below must have a height of 100%.
     */}
+
+  
     <Grid
       textAlign='center'
       style={{ height: '100%' }}
@@ -144,8 +160,9 @@ class SignUp extends Component {
               value={this.state.password} onChange={this.handlePasswordChange}
 
             />
-
+            <Transition animation={'scale'} duration={500} visible={this.state.visible}>
             <Button onClick={this.handleSubmit} color='teal' fluid size='large'>Sign Up</Button>
+             </Transition>
           </Segment>
         </Form>
         <Message>
@@ -168,7 +185,8 @@ const styles = {
     },
     top:{
           
-          backgroundColor: "darkslategrey"
+          backgroundColor: "darkslategrey",
+          height: '65px'
           
     }
 }
