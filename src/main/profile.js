@@ -112,7 +112,7 @@ export default class Profile extends Component {
         
 
       <Grid.Column style={{ maxWidth: 681 }}>
-        <Header as='h2' color='white' textAlign='center'>
+        <Header as='h2' style={styles.header} textAlign='center'>
           {' '}Profile
         </Header>
         <Form size='large'>
@@ -165,5 +165,12 @@ const styles = {
         display: "flex", 
         flex : 1, 
         minHeight : window.innerHeight
+    },   
+     header : {
+        color: 'white',
+        paddingTop: '10px',
+        textAlign:'left',
+        fontFamily: "Lato,'Helvetica Neue',Arial,Helvetica,sans-serif",
+        fontWeight: '700'
     }
 }

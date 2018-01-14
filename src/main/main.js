@@ -23,7 +23,7 @@ export default class Main extends Component {
     render() {
         return (
               <Container style={styles.uiContainer}>
-                <Sidebar as={Menu} icon='labeled' visible={true} vertical inverted>
+                <Sidebar as={Menu} icon='labeled' visible={true} style={styles.sidebar1} vertical inverted>
                   <Menu.Item link name='Logs' onClick={this.goToLogs}>
                     <Icon name='file' />
                     Logs
@@ -62,5 +62,8 @@ const styles = {
     },
     move: {
       transform: 'translate3d(120px,0,0px)'
+    },
+    sidebar1: {
+          backgroundColor: "darkslategrey"
     }
 }
