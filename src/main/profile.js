@@ -99,7 +99,7 @@ export default class Profile extends Component {
       body > div > div,
       body > div > div > div.login-form {
         height: 100%;
-        background-color: aliceblue;
+        width
       }
     `}</style>
     <Grid
@@ -111,8 +111,8 @@ export default class Profile extends Component {
      <Transition animation={'fade right'} duration={500} visible={this.state.visible}>
         
 
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' color='teal' textAlign='center'>
+      <Grid.Column style={{ maxWidth: 681 }}>
+        <Header as='h2' color='white' textAlign='center'>
           {' '}Profile
         </Header>
         <Form size='large'>
