@@ -4,9 +4,9 @@ import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui
 export default class Profile extends Component {
     render() {
         return (
-            <div>
+            <Segment style={{ height : window.innerHeight }}>
                 Profile!
-            </div>
+            </Segment>
           )
     }
 }
