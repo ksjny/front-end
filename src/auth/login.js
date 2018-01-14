@@ -1,8 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Form, Grid, Container, Menu, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Container, Menu, Header, Image, Message, Segment,Transition } from 'semantic-ui-react'
 
 export default class LoginForm extends React.Component {
+   constructor(props) {
+        super(props);
+        this.state = {
+            visible: false
+        };
+    }
 
       goToLogin = () => {
         this.props.history.push('login')
@@ -12,6 +18,18 @@ export default class LoginForm extends React.Component {
         this.props.history.push('signup')
     }
     
+    goToHome = () => {
+        this.props.history.push('')
+    }
+     goToAbout = () => {
+        this.props.history.push('About')
+    }
+
+    componentDidMount () {
+        this.setState({
+            visible: true
+        })
+    }
     render () {
       return ( 
         <div>
@@ -23,8 +41,8 @@ export default class LoginForm extends React.Component {
                     >
                     <Container>
                     <Menu inverted pointing secondary style={styles.header}size='large'>
-                        <Menu.Item as='a' active>Home</Menu.Item>
-                        <Menu.Item as='a'>About Us</Menu.Item>
+                        <Menu.Item as='a' onClick={this.goToHome}>Home</Menu.Item>
+                        <Menu.Item as='a'onClick={this.goToAbout}>About Us</Menu.Item>
                         <Menu.Item position='right'>
                         <Button as='a' inverted onClick={this.goToLogin}>Log in</Button>
                         <Button as='a' inverted style={{ marginLeft: '0.5em' }} onClick={this.goToSignUp}>Sign Up</Button>
@@ -65,8 +83,9 @@ export default class LoginForm extends React.Component {
                     placeholder='Password'
                     type='password'
                   />
-      
+                  <Transition animation={'scale'} duration={500} visible={this.state.visible}>
                   <Button color='teal' fluid size='large'>Login</Button>
+                   </Transition>
                 </Segment>
               </Form>
               <Message>
@@ -91,7 +110,8 @@ export default class LoginForm extends React.Component {
     },
     top:{
           
-          backgroundColor: "darkslategrey"
+          backgroundColor: "darkslategrey",
+          height: '65px'
           
     }
 }

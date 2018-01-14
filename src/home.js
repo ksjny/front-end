@@ -25,6 +25,10 @@ export default class HomePage extends Component {
         this.props.history.push('signup')
     }
 
+     goToAbout = () => {
+        this.props.history.push('About')
+    }
+
     render() {
         return( 
             <div>
@@ -37,7 +41,7 @@ export default class HomePage extends Component {
                     <Container>
                     <Menu inverted pointing secondary style={styles.header}size='large'>
                         <Menu.Item as='a' active>Home</Menu.Item>
-                        <Menu.Item as='a'>About Us</Menu.Item>
+                        <Menu.Item as='a'onClick={this.goToAbout}>About Us</Menu.Item>
                         <Menu.Item position='right'>
                         <Button as='a' inverted onClick={this.goToLogin}>Log in</Button>
                         <Button as='a' inverted style={{ marginLeft: '0.5em' }} onClick={this.goToSignUp}>Sign Up</Button>

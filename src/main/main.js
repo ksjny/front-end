@@ -19,6 +19,9 @@ export default class Main extends Component {
     goToProfile = () => {
       this.props.history.push('/main/profile')
     }
+        goToHome = () => {
+        this.props.history.push('')
+    }
 
     render() {
         return (
@@ -40,7 +43,7 @@ export default class Main extends Component {
                     <Icon name='user' />
                     Profile
                   </Menu.Item>
-                  <Menu.Item link name='Sign Out'>
+                  <Menu.Item link name='Sign Out' onClick={this.goToHome}>
                     <Icon name='log out' />
                     Sign Out
                   </Menu.Item>

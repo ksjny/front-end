@@ -14,6 +14,7 @@ import Dashboard from './main/dashboard'
 import Profile from './main/profile'
 import Login from './auth/login'
 import SignUp from './auth/signUp'
+import AboutUs from './aboutUs'
 import Main from './main/main'
 import { createStore, applyMiddleware } from 'redux'
 import reduxThunk from 'redux-thunk'
@@ -32,6 +33,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />               
             <Route exact path="/signup" component={SignUp}/>
+            <Route exact path="/About" component={AboutUs}/>
             <PrivateRoute path="/main" isAuthenticated={true} component={Main} />
           </Switch>
         </Router>
