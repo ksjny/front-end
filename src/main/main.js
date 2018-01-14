@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import MainRoutes from '../routes/mainRoutes'
-import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
+import { Sidebar, Segment, Button, Menu, Image, Icon, Header, Container } from 'semantic-ui-react'
 
 export default class Main extends Component {
 
     render() {
         return (
-              <Sidebar.Pushable as={Segment}>
+              <Container>
                 <Sidebar as={Menu} width='thin' icon='labeled' visible={true} vertical inverted>
                   <Menu.Item name='Logs'>
                     <Icon name='file' />
@@ -25,10 +25,8 @@ export default class Main extends Component {
                     Sign Out
                   </Menu.Item>
                 </Sidebar>
-                <Sidebar.Pusher>
-                    <MainRoutes/>
-                </Sidebar.Pusher>
-              </Sidebar.Pushable>   
+                <MainRoutes/>
+              </Container>   
           )
     }
 }
