@@ -9,7 +9,9 @@ import {
     Header,
     Table,
     Transition,
-    Rating
+    Rating,
+    Modal,
+    Form
 } from 'semantic-ui-react'
 
 export default class Medicine extends Component {
@@ -27,12 +29,37 @@ export default class Medicine extends Component {
         visible: true
       })
      }
+
+
+       handleChange = (e, { name, value }) => this.setState({ [name]: value })
+
+  handleSubmit = () => this.setState({ email: '', name: '' })
+
+
+ _refresh = () => {
+        window.location.reload();
+    }
+
     render() {
+        const { name, email } = this.state
         return (
             <Transition animation={'fade right'} duration={500} visible={this.state.visible}>
             <Segment vertical style={styles.medicineContainer}>
                     <Header size='huge' style={styles.header}>Medicines
-                    <button class="ui right floated teal button">Add medicine</button></Header>
+                    <button class="ui right floated teal button" onClick={this._refresh}>Refresh</button>
+                    <Modal trigger = {<button class="ui right floated teal button">Add medicine</button>}>
+                <Modal.Header>Add medicine</Modal.Header>
+                        <Modal.Content>
+                     <Form onSubmit={this.handleSubmit}>
+                        <Form.Group>
+                          <Form.Input placeholder='Medicine' name='Medicine' value={name} onChange={this.handleChange} />
+                          <Form.Input placeholder='Time' name='Time' value={email} onChange={this.handleChange} />
+                          <Form.Button content='Submit' />
+                        </Form.Group>
+                      </Form>
+                        </Modal.Content>
+                      </Modal>
+                </Header>
                     <Table celled padded>
                         <Table.Header>
                         <Table.Row textAlign="center">
