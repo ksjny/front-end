@@ -7,8 +7,8 @@ export default class AuthRoutes extends Component {
     render() {
         return(
             <Switch>
-                <Route exact path="/login" component={Login} />               
-                <Route exact path="/signup" component={SignUp}/>
+                <Route exact path="/auth/login" component={Login} />               
+                <Route exact path="/auth/signup" component={SignUp}/>
                 <Redirect to="/"/>
             </Switch>
         )
